@@ -26,6 +26,8 @@ import           Crypto.Hash
                  ( Digest, Keccak_512, hash )
 import           Data.ByteArray
                  ( ScrubbedBytes )
+import           Data.ByteString.Char8
+                 ( pack )
 import qualified Data.HashMap.Strict as HashMap
 import           Data.Map
                  ( Map )
@@ -106,7 +108,8 @@ evalKeccak =
             traceShowM str
             let
                 bytes = fromString str :: ScrubbedBytes
-                digest = hash bytes :: Digest Keccak_512
+                -- digest = hash bytes :: Digest Keccak_512
+                digest = hash . pack $ str :: Digest Keccak_512
                 result = "0x" <> show digest
             traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
