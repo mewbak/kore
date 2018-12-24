@@ -100,7 +100,7 @@ evalKeccak =
             str <- String.expectBuiltinString keccakKey arg
             let
                 digest = hash . pack $ str :: Digest Keccak_256
-                result = "0x" <> show digest
+                result = show digest
             traceM result
             Builtin.appliedFunction
                 $ String.asExpandedPattern resultSort result
