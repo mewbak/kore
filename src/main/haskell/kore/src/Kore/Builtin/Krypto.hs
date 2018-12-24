@@ -98,7 +98,7 @@ evalKeccak =
                       [input] -> input
                       _ -> Builtin.wrongArity keccakKey
             str <- String.expectBuiltinString keccakKey arg
-            traceM $ "<" <> str <> "><" <> show str <> ">"
+            traceM $ "<" <> str <> "><" <> show str <> ">" <> show (length str)
             let
                 digest = show (hash . pack $ str :: Digest Keccak_512)
             traceM digest
