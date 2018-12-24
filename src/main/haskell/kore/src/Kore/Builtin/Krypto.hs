@@ -89,13 +89,13 @@ evalKeccak =
     evalKeccak0 _ _ resultSort arguments =
         Builtin.getAttemptedFunction $ do
             let
-                _str =
+                arg =
                     case arguments of
-                      [_str] -> _str
+                      [input] -> input
                       _ -> Builtin.wrongArity keccakKey
-            _str <- String.expectBuiltinString keccakKey _str
+            str <- String.expectBuiltinString keccakKey arg
             let
-                digest = hash (pack _str) :: Digest Keccak_512
+                digest = hash (pack str) :: Digest Keccak_512
                 result = show digest
-            error $ "----\n'" <> _str <> "'\n" <> result <> "\n--------"
+            error $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
