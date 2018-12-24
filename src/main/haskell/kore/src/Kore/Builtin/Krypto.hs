@@ -113,4 +113,4 @@ evalKeccak =
                 result = "0x" <> show digest
             traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort
-                $ "1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
+                $ "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
