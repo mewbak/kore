@@ -23,7 +23,7 @@ module Kore.Builtin.Krypto
     ) where
 
 import           Crypto.Hash
-                 ( Digest, Keccak_512, hash )
+                 ( Digest, Keccak_256, hash )
 import           Data.ByteString.Char8
                  ( pack )
 import qualified Data.HashMap.Strict as HashMap
@@ -98,8 +98,7 @@ evalKeccak =
                       [input] -> input
                       _ -> Builtin.wrongArity keccakKey
             str <- String.expectBuiltinString keccakKey arg
-            traceM $ "<" <> str <> "><" <> show str <> ">" <> show (length str)
             let
-                digest = show (hash . pack $ str :: Digest Keccak_512)
-            traceM digest
-            Builtin.appliedFunction $ String.asExpandedPattern resultSort digest
+                digest = show (hash . pack $ str :: Digest Keccak_256)
+            Builtin.appliedFunction
+                $ String.asExpandedPattern resultSort digest
