@@ -42,6 +42,7 @@ dependencies:
   - integer-gmp
   - lens
   - megaparsec >= 6.4.0
+  - memory
   - mmorph
   - mtl
   - optparse-applicative

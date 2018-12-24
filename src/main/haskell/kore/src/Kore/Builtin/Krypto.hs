@@ -24,12 +24,14 @@ module Kore.Builtin.Krypto
 
 import           Crypto.Hash
                  ( Digest, Keccak_512, hash )
-import           Data.ByteString.Char8
-                 ( pack )
+import           Data.ByteArray
+                 ( ScrubbedBytes )
 import qualified Data.HashMap.Strict as HashMap
 import           Data.Map
                  ( Map )
 import qualified Data.Map as Map
+import           Data.String
+                 ( fromString )
 import           Data.Text
                  ( Text )
 
@@ -103,7 +105,8 @@ evalKeccak =
             traceM "str: \n"
             traceShowM str
             let
-                digest = hash (pack str) :: Digest Keccak_512
+                bytes = fromString str :: ScrubbedBytes
+                digest = hash bytes :: Digest Keccak_512
                 result = "0x" <> show digest
             traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
