@@ -24,8 +24,6 @@ module Kore.Builtin.Krypto
 
 import           Crypto.Hash
                  ( Digest, Keccak_512, hash )
-import           Data.ByteArray
-                 ( ScrubbedBytes )
 import           Data.ByteString.Char8
                  ( pack )
 import qualified Data.HashMap.Strict as HashMap
@@ -94,23 +92,14 @@ evalKeccak =
         -> Simplifier (AttemptedFunction Object variable)
     evalKeccak0 _ _ resultSort arguments =
         Builtin.getAttemptedFunction $ do
-            traceM "arguments: \n"
-            traceShowM arguments
             let
                 arg =
                     case arguments of
                       [input] -> input
                       _ -> Builtin.wrongArity keccakKey
-            traceM "arg: \n"
-            traceShowM arg
             str <- String.expectBuiltinString keccakKey arg
-            traceM "str: \n"
-            traceM $ "'" <> str <> "'|'" <> show str <> "'"
+            traceM $ "<" <> str <> "><" <> show str <> ">"
             let
-                bytes = fromString str :: ScrubbedBytes
-                -- digest = hash bytes :: Digest Keccak_512
-                digest = hash . pack $ str :: Digest Keccak_512
-                result = "0x" <> show digest
-            traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
-            Builtin.appliedFunction $ String.asExpandedPattern resultSort
-                $ "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
+                digest = show (hash . pack $ str :: Digest Keccak_512)
+            traceM digest
+            Builtin.appliedFunction $ String.asExpandedPattern resultSort digest
