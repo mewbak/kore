@@ -28,6 +28,7 @@ dependencies:
   - comonad
   - containers >= 0.5.8
   - clock
+  - cryptonite
   - data-default
   - deepseq
   - deriving-compat

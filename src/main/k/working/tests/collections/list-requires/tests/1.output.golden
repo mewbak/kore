@@ -1,14 +1,15 @@
 <generatedTop>
   <T>
     <k>
-      a
+      b
     </k>
-    <s1>
-      ListItem ( a )
-      ListItem ( b )
-      ListItem ( c )
-      .List
-    </s1>
+    <sl>
+      a |-> b
+      b |-> 0
+    </sl>
+    <sr>
+      a |-> b
+    </sr>
   </T>
   <generatedCounter>
     0
