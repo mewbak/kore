@@ -82,7 +82,7 @@ evalKeccak =
     Builtin.functionEvaluator evalKeccak0
   where
     evalKeccak0
-        :: Ord (variable Object)
+        :: (Ord (variable Object), Show (variable Object))
         => MetadataTools Object StepperAttributes
         -> StepPatternSimplifier Object variable
         -> Sort Object
@@ -90,12 +90,18 @@ evalKeccak =
         -> Simplifier (AttemptedFunction Object variable)
     evalKeccak0 _ _ resultSort arguments =
         Builtin.getAttemptedFunction $ do
+            traceM "arguments: \n"
+            traceShowM arguments
             let
                 arg =
                     case arguments of
                       [input] -> input
                       _ -> Builtin.wrongArity keccakKey
+            traceM "arg: \n"
+            traceShowM arg
             str <- String.expectBuiltinString keccakKey arg
+            traceM "str: \n"
+            traceShowM str
             let
                 digest = hash (pack str) :: Digest Keccak_512
                 result = show digest
