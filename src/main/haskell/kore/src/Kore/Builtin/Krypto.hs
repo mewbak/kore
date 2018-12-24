@@ -99,6 +99,8 @@ evalKeccak =
                       _ -> Builtin.wrongArity keccakKey
             str <- String.expectBuiltinString keccakKey arg
             let
-                digest = show (hash . pack $ str :: Digest Keccak_256)
+                digest = hash . pack $ str :: Digest Keccak_256
+                result = "0x" <> show digest
+            traceM result
             Builtin.appliedFunction
-                $ String.asExpandedPattern resultSort digest
+                $ String.asExpandedPattern resultSort result
