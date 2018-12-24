@@ -49,6 +49,8 @@ import           Kore.Step.Simplification.Data
 import           Kore.Step.StepperAttributes
                  ( StepperAttributes )
 
+import Debug.Trace
+
 keccakKey :: String
 keccakKey = "KRYPTO.keccak256"
 keccakKeyT :: Text
@@ -97,5 +99,5 @@ evalKeccak =
             let
                 digest = hash (pack str) :: Digest Keccak_512
                 result = show digest
-            error $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
+            traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
