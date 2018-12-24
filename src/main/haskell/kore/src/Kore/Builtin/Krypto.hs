@@ -105,7 +105,7 @@ evalKeccak =
             traceShowM arg
             str <- String.expectBuiltinString keccakKey arg
             traceM "str: \n"
-            traceShowM str
+            traceM $ "'" <> str <> "'|'" <> show str <> "'"
             let
                 bytes = fromString str :: ScrubbedBytes
                 -- digest = hash bytes :: Digest Keccak_512
