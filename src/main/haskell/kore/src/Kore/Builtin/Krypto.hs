@@ -104,6 +104,6 @@ evalKeccak =
             traceShowM str
             let
                 digest = hash (pack str) :: Digest Keccak_512
-                result = show digest
+                result = "0x" <> show digest
             traceM $ "----\n'" <> str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
