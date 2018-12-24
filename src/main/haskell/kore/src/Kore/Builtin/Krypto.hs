@@ -97,5 +97,5 @@ evalKeccak =
             let
                 digest = hash (pack _str) :: Digest Keccak_512
                 result = show digest
-            error $ "----\n" <> _str <> "\n" <> result <> "\n--------"
+            error $ "----\n'" <> _str <> "'\n" <> result <> "\n--------"
             Builtin.appliedFunction $ String.asExpandedPattern resultSort result
